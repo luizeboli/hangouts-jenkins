@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
 app.post("/jenkins", (req, res) => {
+  console.log(req.body)
   const { space, type, message } = req.body || {};
   
   if (type === "ADDED_TO_SPACE" && space.type === "ROOM") {
