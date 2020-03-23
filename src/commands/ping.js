@@ -1,7 +1,7 @@
 module.exports = {
   name: 'ping',
   description: 'Ping!',
-  execute() {
-    console.log('pong');
+  execute(req, res) {
+    return res.send({ text: 'Pong!' });
   },
 };
