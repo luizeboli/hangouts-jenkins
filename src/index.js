@@ -22,7 +22,7 @@ app.post('/jenkins', (req, res) => {
   }
 
   if (type === 'MESSAGE') {
-    if (!botCommands.has(command)) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
+    if (!botCommands.has(command.trim())) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
 
     try {
       botCommands.get(command).execute(req, res);
