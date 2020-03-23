@@ -6,9 +6,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const botCommands = new Map();
 
-Object.keys(commands).map((key) => {
-  botCommands.set(commands[key].name, commands[key]);
-});
+Object.keys(commands).map((key) => botCommands.set(commands[key].name, commands[key]));
 
 app.use(bodyParser.json());
 
@@ -24,9 +22,13 @@ app.post('/jenkins', (req, res) => {
   }
 
   if (type === 'MESSAGE') {
-    // res.send({ text: `Your message was: ${message.text}`})
+    if (!botCommands.has(command)) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
 
-    if (!botCommands.has(command)) res.send({ text: 'Sorry, I didnt recognize this command' });
+    try {
+      botCommands.get(command).execute();
+    } catch (error) {
+      res.send({ text: 'There was an error trying to execute your command.' });
+    }
   }
 });
 
