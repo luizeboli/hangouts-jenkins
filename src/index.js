@@ -14,15 +14,14 @@ app.post('/jenkins', (req, res) => {
   console.log(req.body);
   const { space, type, message } = req.body || {};
 
-  const args = message.text.split(/ +/);
-  const command = args.shift().toLowerCase();
+  const command = message.argumentText.trim();
 
   if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') {
     res.send({ text: `Thanks for adding me to ${space.displayName}` });
   }
 
   if (type === 'MESSAGE') {
-    if (!botCommands.has(command.trim())) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
+    if (!botCommands.has(command)) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
 
     try {
       botCommands.get(command).execute(req, res);
