@@ -25,7 +25,7 @@ app.post('/jenkins', (req, res) => {
     if (!botCommands.has(command)) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
 
     try {
-      botCommands.get(command).execute();
+      botCommands.get(command).execute(req, res);
     } catch (error) {
       res.send({ text: 'There was an error trying to execute your command.' });
     }
