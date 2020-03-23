@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.json());
 
-app.post("/top-secret-bot", (req, res) => {
+app.post("/jenkins", (req, res) => {
   const { space, type, message } = req.body || {};
   
   if (type === "ADDED_TO_SPACE" && space.type === "ROOM") {
@@ -18,5 +18,5 @@ app.post("/top-secret-bot", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
+  console.log(`App listening on ${PORT}`);
 });
