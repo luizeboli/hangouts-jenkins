@@ -13,13 +13,15 @@ app.use(bodyParser.json());
 
 app.post('/jenkins', (req, res) => {
   const { space, type, message } = req.body || {};
-  const command = message.argumentText.trim();
+  console.log(message);
 
   if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') {
-    res.send({ text: `Thanks for adding me to ${space.displayName}` });
+    return res.send({ text: `Thanks for adding me to ${space.displayName}` });
   }
 
   if (type === 'MESSAGE') {
+    const command = message.argumentText.split(' ')[1].trim();
+
     if (command === 'help') {
       return help.execute(req, res);
     }
@@ -29,6 +31,7 @@ app.post('/jenkins', (req, res) => {
     try {
       botCommands.get(command).execute(req, res);
     } catch (error) {
+      console.error(error);
       res.send({ text: 'There was an error trying to execute your command.' });
     }
   }
