@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const commands = require('./commands');
+const help = require('./commands/help');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -11,9 +12,7 @@ Object.keys(commands).map((key) => botCommands.set(commands[key].name, commands[
 app.use(bodyParser.json());
 
 app.post('/jenkins', (req, res) => {
-  console.log(req.body);
   const { space, type, message } = req.body || {};
-
   const command = message.argumentText.trim();
 
   if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') {
@@ -21,6 +20,10 @@ app.post('/jenkins', (req, res) => {
   }
 
   if (type === 'MESSAGE') {
+    if (command === 'help') {
+      return help.execute(req, res);
+    }
+
     if (!botCommands.has(command)) return res.send({ text: 'Sorry, I didnt recognize this command. Say *help* to list all available commands.' });
 
     try {

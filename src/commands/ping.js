@@ -1,6 +1,6 @@
 module.exports = {
   name: 'ping',
-  description: 'Ping!',
+  description: 'ping pong!',
   execute(req, res) {
     return res.send({ text: 'Pong!' });
   },
