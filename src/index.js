@@ -15,9 +15,9 @@ app.use(bodyParser.json());
 app.post('/jenkins', (req, res) => {
   const { space, type, message } = req.body || {};
 
-  if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') {
-    return res.send({ text: `Thanks for adding me to ${space.displayName}` });
-  }
+  if (space.type === 'DM') return res.send({ text: 'Sorry, I am forbidden to answer DM.' });
+
+  if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') return res.send({ text: `Thanks for adding me to ${space.displayName}` });
 
   if (type === 'MESSAGE') {
     const command = message.argumentText.split(' ')[1].trim();
