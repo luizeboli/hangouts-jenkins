@@ -7,7 +7,6 @@ module.exports = {
   execute(req, res) {
     const { sender: { name: senderName }, thread, argumentText } = req.body.message;
     const args = argumentText.split(' ').slice(2);
-    console.log(args);
 
     if (args.length > 1) return res.send({ text: 'I only accept *one* argument for this command: branch name of *static-ticket* repository.' });
 
