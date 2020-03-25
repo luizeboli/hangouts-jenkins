@@ -33,16 +33,12 @@ module.exports = {
             },
             sections: [{
               widgets: [{
-                textParagraph: {
-                  text: `I couldnt finish build ${stdout.substring(stdout.length - 17)}`,
-                },
+                textParagraph: { text: `I couldnt finish build ${stdout.substring(stdout.length - 17)}` },
                 buttons: [{
                   textButton: {
                     text: 'OPEN JENKINS CONSOLE',
                     onClick: {
-                      openLink: {
-                        url: link,
-                      },
+                      openLink: { url: link },
                     },
                   },
                 }],
@@ -50,7 +46,6 @@ module.exports = {
             }],
           }];
 
-          // options.data.text = `<${senderName}>, I couldnt finish build ${stdout.substring(stdout.length - 17)}${link}`;
           return postMessage(options);
         }
 

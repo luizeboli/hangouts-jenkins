@@ -33,7 +33,7 @@ exports.postMessage = async (options) => {
       Authorization: `Bearer ${token}`,
     };
 
-    await axios('https://chat.googleapis.com/v1/spaces/AAAAQbEr2BM/messages', { method: 'POST', ...newOpt });
+    await axios('https://chat.googleapis.com/v1/spaces/AAAARgyH7eU/messages', { method: 'POST', ...newOpt });
   } catch (error) {
     console.error('Error when trying to send a message', error);
   }
