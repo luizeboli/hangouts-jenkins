@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 
 app.post('/jenkins', (req, res) => {
   const { space, type, message } = req.body || {};
-  console.log(message);
 
   if (type === 'ADDED_TO_SPACE' && space.type === 'ROOM') {
     return res.send({ text: `Thanks for adding me to ${space.displayName}` });
