@@ -14,7 +14,7 @@ function getJWT() {
 
     jwtClient.authorize((err, tokens) => {
       if (err) {
-        console.log('Error create JWT hangoutchat');
+        console.log('Error when creating Hangouts JWT');
         reject(err);
       } else {
         resolve(tokens.access_token);
@@ -23,15 +23,18 @@ function getJWT() {
   }));
 }
 
-exports.postMessage = (options) => new Promise(((resolve, reject) => {
-  getJWT(ce, pk).then((token) => {
+exports.postMessage = async (options) => {
+  try {
+    const token = await getJWT(ce, pk);
+
     const newOpt = options;
     newOpt.headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    axios(newOpt).then((res) => console.log(res));
-  }).catch((err) => {
-    reject(err);
-  });
-}));
+
+    await axios('https://chat.googleapis.com/v1/spaces/AAAAQbEr2BM/messages', { method: 'POST', ...newOpt });
+  } catch (error) {
+    console.error('Error when trying to send a message', error);
+  }
+};
